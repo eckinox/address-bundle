@@ -86,9 +86,16 @@ class AddressAutocomplete extends HTMLElement {
 
 		this.row.addEventListener('populate-address', (event) => {
 			const address = this.input;
-			const city = this.row.querySelector('td[data-field-name="city"] input');
-			const province = this.row.querySelector('td[data-field-name="province"] input');
-			const postalCode = this.row.querySelector('td[data-field-name="postalCode"] input');
+			let city = this.row.querySelector('*[data-field-name="city"] input');
+			let province = this.row.querySelector('*[data-field-name="province"] input');
+			let postalCode = this.row.querySelector('*[data-field-name="postalCode"] input');
+
+			// in the case where the form would be displayed in a modal
+			if (city == null || province == null || postalCode == null) {
+				city = this.row.querySelector('*.city input');
+				province = this.row.querySelector('*.province input');
+				postalCode = this.row.querySelector('*.postal-code input');
+			}
 
 			address.value = event.detail.address;
 			city.value = event.detail.city;
@@ -121,9 +128,11 @@ class AddressAutocomplete extends HTMLElement {
 
 		document.head.insertAdjacentHTML("afterbegin", `
 			<style>
-				address-autocomplete { position: relative; }
+				address-autocomplete { position: relative; display: block; }
 				address-autocomplete .autocomplete-choices-wrapper { position: absolute; top: 100%; left: 0; width: 100%; max-height: 215px; overflow-y: auto; cursor: pointer; }
-				address-autocomplete .loading-overlay { pointer-events: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #33333377; display: flex; align-items: center; justify-content: center; transition: opacity .2s ease-in-out; opacity: 0; }
+				address-autocomplete .autocomplete-choices-wrapper .autocomplete-choices { min-height: 50px; }
+				address-autocomplete .autocomplete-choices-wrapper .autocomplete-choices:empty { min-height: 0; }
+				address-autocomplete .loading-overlay { pointer-events: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #33333377; display: flex; align-items: center; justify-content: center; transition: opacity .2s ease-in-out; opacity: 0; mix-blend-mode: exclusion; }
 				address-autocomplete .loading-overlay .spinner-border { opacity: 0.3; }
 
 				address-autocomplete.loading .loading-overlay { opacity: 1; }
