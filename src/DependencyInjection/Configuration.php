@@ -7,10 +7,10 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 class Configuration implements ConfigurationInterface
 {
-    public function getConfigTreeBuilder(): TreeBuilder
-    {
-        $treeBuilder = new TreeBuilder('eckinox_address');
+	public function getConfigTreeBuilder(): TreeBuilder
+	{
+		$treeBuilder = new TreeBuilder('eckinox_address');
 
-        return $treeBuilder;
-    }
+		return $treeBuilder;
+	}
 }
