@@ -19,7 +19,11 @@
         "php": ">=7.2.5",
         "symfony/form": "^5.0|^6.0",
         "twig/twig": "^2.12|^3.0",
-        "eckinox/eckinox-cs": "^1.6"
+        "eckinox/eckinox-cs": "^1.6",
+        "symfony/http-client": "^6.0",
+        "symfony/framework-bundle": "^6.0",
+        "doctrine/orm": "^2.13",
+        "symfony/serializer": "^6.0"
     },
     "repositories": [
     ],

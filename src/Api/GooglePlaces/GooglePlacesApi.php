@@ -2,7 +2,6 @@
 
 namespace Eckinox\AddressBundle\Api\GooglePlaces;
 
-use App\Api\ResponseHandlingTrait;
 use Eckinox\AddressBundle\Api\AddressApiInterface;
 use Eckinox\AddressBundle\Api\GooglePlaces\Model\Address;
 use Eckinox\AddressBundle\Api\GooglePlaces\Model\Prediction;
@@ -11,8 +10,6 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class GooglePlacesApi implements AddressApiInterface
 {
-	use ResponseHandlingTrait;
-
 	private HttpClientInterface $client;
 
 	public function __construct(

@@ -2,7 +2,6 @@
 
 namespace Eckinox\AddressBundle\Api\AddressComplete;
 
-use App\Api\ResponseHandlingTrait;
 use Eckinox\AddressBundle\Api\AddressApiInterface;
 use Eckinox\AddressBundle\Api\AddressComplete\Model\Address;
 use Eckinox\AddressBundle\Api\AddressComplete\Model\Prediction;
@@ -11,8 +10,6 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class AddressCompleteApi implements AddressApiInterface
 {
-	use ResponseHandlingTrait;
-
 	private HttpClientInterface $client;
 
 	private string $language;
