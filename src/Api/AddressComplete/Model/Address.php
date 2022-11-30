@@ -6,12 +6,16 @@ use Eckinox\AddressBundle\Model\AbstractAddress;
 
 class Address extends AbstractAddress
 {
-	public function __construct(object $data)
+	public static function fromAddressCompleteResult(object $result): Address
 	{
-		$this->address = $data->Line1;
-		$this->city = $data->City;
-		$this->province = $data->ProvinceName;
-		$this->postalCode = $data->PostalCode;
-		$this->country = $data->CountryName;
+		$address = new Address();
+
+		$address->address = $result->Line1;
+		$address->city = $result->City;
+		$address->province = $result->ProvinceName;
+		$address->postalCode = $result->PostalCode;
+		$address->country = $result->CountryName;
+
+		return $address;
 	}
 }

@@ -2,17 +2,18 @@
 
 namespace Eckinox\AddressBundle\Api;
 
+use Eckinox\AddressBundle\Model\AbstractAddress;
+use Eckinox\AddressBundle\Model\AbstractPrediction;
+
 interface AddressApiInterface
 {
 	/**
-	 * @return array<object>
-	 *                       returns an array of Prediction
+	 * @return array<AbstractPrediction>
 	 */
 	public function getPredictions(string $searchQuery, string $previousId): array;
 
 	/**
-	 * @return object
-	 *                returns an Address
+	 * @return AbstractAddress
 	 */
 	public function getAdressDetails(string $placeId): object;
 }

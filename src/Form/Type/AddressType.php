@@ -2,6 +2,7 @@
 
 namespace Eckinox\AddressBundle\Form\Type;
 
+use Eckinox\AddressBundle\Api\AddressComplete\AddressCompleteApi;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -29,7 +30,7 @@ class AddressType extends AbstractType
 	{
 		$resolver->setDefaults([
 			'data_class' => null,
-			'api' => 'addressComplete',
+			'api' => AddressCompleteApi::API_NAME,
 			'attr' => [
 				'data-widget' => 'form-validate',
 			],

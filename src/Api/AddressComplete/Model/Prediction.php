@@ -6,10 +6,14 @@ use Eckinox\AddressBundle\Model\AbstractPrediction;
 
 class Prediction extends AbstractPrediction
 {
-	public function __construct(object $data)
+	public static function fromAddressCompleteResult(object $result): Prediction
 	{
-		$this->id = $data->Id;
-		$this->displayName = $data->Text.", ".$data->Description;
-		$this->action = $data->Next;
+		$prediction = new Prediction();
+
+		$prediction->id = $result->Id;
+		$prediction->displayName = $result->Text.", ".$result->Description;
+		$prediction->action = $result->Next;
+
+		return $prediction;
 	}
 }

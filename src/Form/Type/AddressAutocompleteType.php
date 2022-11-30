@@ -2,6 +2,7 @@
 
 namespace Eckinox\AddressBundle\Form\Type;
 
+use Eckinox\AddressBundle\Api\AddressComplete\AddressCompleteApi;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormInterface;
@@ -13,7 +14,7 @@ class AddressAutocompleteType extends AbstractType
 	public function configureOptions(OptionsResolver $resolver): void
 	{
 		$resolver->setDefaults([
-			'api' => "addressComplete",
+			'api' => AddressCompleteApi::API_NAME,
 		]);
 	}
 

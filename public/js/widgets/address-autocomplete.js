@@ -9,13 +9,11 @@ class AddressAutocomplete extends HTMLElement {
 		this.row = null;
 		this.autocompleteChoices = null;
 		this.api = '';
-		this.getPredictionsRoute = Routing.generate('bgm_ajax_get_address_predictions', {});
-		this.getDetailsRoute = Routing.generate('bgm_ajax_get_address_details', {});
-
-		this.init();
+		this.getPredictionsRoute = Routing.generate('ajax_get_address_predictions', {});
+		this.getDetailsRoute = Routing.generate('ajax_get_address_details', {});
 	}
 
-	init()
+	connectedCallback()
 	{
 		this.input = this.querySelector('input');
 		this.wrapper = this;
@@ -51,7 +49,7 @@ class AddressAutocomplete extends HTMLElement {
 
 						this.generateChoices(choices);
 					});
-			}, 800);
+			}, 500);
 		});
 
 		// once a prediction is clicked, get address infos or more precise predictions based on the action
@@ -85,22 +83,22 @@ class AddressAutocomplete extends HTMLElement {
 		});
 
 		this.row.addEventListener('populate-address', (event) => {
-			const address = this.input;
-			let city = this.row.querySelector('*[data-field-name="city"] input');
-			let province = this.row.querySelector('*[data-field-name="province"] input');
-			let postalCode = this.row.querySelector('*[data-field-name="postalCode"] input');
+			const addressInput = this.input;
+			let cityInput = this.row.querySelector('*[data-field-name="city"] input');
+			let provinceInput = this.row.querySelector('*[data-field-name="province"] input');
+			let postalCodeInput = this.row.querySelector('*[data-field-name="postalCode"] input');
 
 			// in the case where the form would be displayed in a modal
-			if (city == null || province == null || postalCode == null) {
-				city = this.row.querySelector('*.city input');
-				province = this.row.querySelector('*.province input');
-				postalCode = this.row.querySelector('*.postal-code input');
+			if (cityInput == null || provinceInput == null || postalCodeInput == null) {
+				cityInput = this.row.querySelector('*.city input');
+				provinceInput = this.row.querySelector('*.province input');
+				postalCodeInput = this.row.querySelector('*.postal-code input');
 			}
 
-			address.value = event.detail.address;
-			city.value = event.detail.city;
-			province.value = event.detail.province;
-			postalCode.value = event.detail.postalCode;
+			addressInput.value = event.detail.address;
+			cityInput.value = event.detail.city;
+			provinceInput.value = event.detail.province;
+			postalCodeInput.value = event.detail.postalCode;
 		});
 
 		window.addEventListener('click', () => {

@@ -16,7 +16,7 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "php": ">=7.2.5",
+        "php": ">=8.0",
         "symfony/form": "^5.0|^6.0",
         "twig/twig": "^2.12|^3.0",
         "eckinox/eckinox-cs": "^1.6",

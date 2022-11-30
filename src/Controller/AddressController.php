@@ -15,10 +15,7 @@ use Symfony\Component\Serializer\Serializer;
 
 class AddressController extends AbstractController
 {
-	/**
-	 * @var Request
-	 */
-	private $request;
+	private Request $request;
 
 	public function __construct(
 		RequestStack $requestStack,

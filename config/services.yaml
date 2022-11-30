@@ -17,13 +17,11 @@ services:
 
     # Api
     Eckinox\AddressBundle\Api\GooglePlaces\GooglePlacesApi:
-        public: true
         class: Eckinox\AddressBundle\Api\GooglePlaces\GooglePlacesApi
         arguments:
             $apiKey: '%env(GOOGLE_PLACES_API_KEY)%'
     
     Eckinox\AddressBundle\Api\AddressComplete\AddressCompleteApi:
-        public: true
         class: Eckinox\AddressBundle\Api\AddressComplete\AddressCompleteApi
         arguments:
             $apiKey: '%env(ADDRESS_COMPLETE_API_KEY)%'

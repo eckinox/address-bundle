@@ -36,7 +36,7 @@ class GooglePlacesApi implements AddressApiInterface
 		$formattedPredictions = [];
 
 		foreach ($predictions as $predictionData) {
-			$prediction = new Prediction($predictionData);
+			$prediction = Prediction::fromPlacesResult($predictionData);
 			$formattedPredictions[] = $prediction;
 		}
 
@@ -57,7 +57,7 @@ class GooglePlacesApi implements AddressApiInterface
 
 		$formattedAddressComponents = $this->formatAddressComponents($placeDetails);
 
-		return new Address($formattedAddressComponents);
+		return Address::fromPlacesResult($formattedAddressComponents);
 	}
 
 	/**

@@ -6,21 +6,22 @@ use Eckinox\AddressBundle\Api\AddressApiInterface;
 use Eckinox\AddressBundle\Api\AddressComplete\Model\Address;
 use Eckinox\AddressBundle\Api\AddressComplete\Model\Prediction;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class AddressCompleteApi implements AddressApiInterface
 {
+	public const API_NAME = 'addressComplete';
+
 	private HttpClientInterface $client;
 
-	private string $language;
-
 	public function __construct(
-		HttpClientInterface $addressComplete,
 		private LoggerInterface $logger,
+		private RequestStack $requestStack,
 		private string $apiKey,
+		HttpClientInterface $addressComplete,
 	) {
 		$this->client = $addressComplete;
-		$this->language = "FRE"; // this should also be based on config
 	}
 
 	/**
@@ -31,17 +32,19 @@ class AddressCompleteApi implements AddressApiInterface
 		$urlEncodedSearchQuery = urlencode($searchQuery);
 		$urlEncodedPreviousId = urlencode($previousId);
 
+		$locale = $this->requestStack->getCurrentRequest()->getLocale();
+
 		// LanguagePreference doesn't seem to work, parameter is here in case it gets fixed in the future
 		$response = $this->client->request(
 			'GET',
-			"Find/2.1/json.ws?key={$this->apiKey}&SearchTerm={$urlEncodedSearchQuery}&LastId={$urlEncodedPreviousId}&LanguagePreference=fr-ca"
+			"Find/2.1/json.ws?key={$this->apiKey}&SearchTerm={$urlEncodedSearchQuery}&LastId={$urlEncodedPreviousId}&LanguagePreference={$locale}"
 		);
 
 		$predictions = $this->handleResponse($response);
 		$formattedPredictions = [];
 
 		foreach ($predictions as $predictionData) {
-			$prediction = new Prediction($predictionData);
+			$prediction = Prediction::fromAddressCompleteResult($predictionData);
 			$formattedPredictions[] = $prediction;
 		}
 
@@ -60,7 +63,7 @@ class AddressCompleteApi implements AddressApiInterface
 		$responseContent = $this->handleResponse($response);
 		$translatedAddressComponents = $this->getAddressComponentsBasedOnLang($responseContent);
 
-		return new Address($translatedAddressComponents);
+		return Address::fromAddressCompleteResult($translatedAddressComponents);
 	}
 
 	/**
@@ -83,8 +86,11 @@ class AddressCompleteApi implements AddressApiInterface
 	 */
 	private function getAddressComponentsBasedOnLang(array $addressComponentsByLang): ?object
 	{
+		$locale = $this->requestStack->getCurrentRequest()->getLocale();
+		$lang = strpos($locale, 'fr') !== false ? 'FRE' : 'ENG'; // addressComplete only supports FR and EN
+
 		foreach ($addressComponentsByLang as $addressComponents) {
-			if ($addressComponents->Language == $this->language) {
+			if ($addressComponents->Language === $lang) {
 				return $addressComponents;
 			}
 		}

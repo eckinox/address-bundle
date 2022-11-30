@@ -10,45 +10,33 @@ abstract class AbstractAddress
 	 * @ORM\Id
 	 * @ORM\GeneratedValue
 	 * @ORM\Column(type="integer")
-	 *
-	 * @var int
 	 */
-	protected $id;
+	protected int $id;
 
 	/**
 	 * @ORM\Column(type="string", length=255)
-	 *
-	 * @var string
 	 */
-	protected $name;
+	protected string $name;
 
 	/**
 	 * @ORM\Column(type="string", length=255)
-	 *
-	 * @var string
 	 */
-	protected $address;
+	protected string $address;
 
 	/**
 	 * @ORM\Column(type="string", length=255)
-	 *
-	 * @var string
 	 */
-	protected $city;
+	protected string $city;
 
 	/**
 	 * @ORM\Column(type="string", length=255)
-	 *
-	 * @var string
 	 */
-	protected $province;
+	protected string $province;
 
 	/**
 	 * @ORM\Column(type="string", length=255)
-	 *
-	 * @var string
 	 */
-	protected $postalCode;
+	protected string $postalCode;
 
 	public function getId(): ?int
 	{
