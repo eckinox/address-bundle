@@ -1,0 +1,27 @@
+services:
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+    
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    Eckinox\AddressBundle\:
+        resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+
+    # Controllers
+    eckinox_address.controller.address:
+        class: Eckinox\AddressBundle\Controller\AddressController
+        tags: ['controller.service_arguments']
+
+    # Api
+    Eckinox\AddressBundle\Api\GooglePlaces\GooglePlacesApi:
+        class: Eckinox\AddressBundle\Api\GooglePlaces\GooglePlacesApi
+        arguments:
+            $apiKey: '%env(GOOGLE_PLACES_API_KEY)%'
+    
+    Eckinox\AddressBundle\Api\AddressComplete\AddressCompleteApi:
+        class: Eckinox\AddressBundle\Api\AddressComplete\AddressCompleteApi
+        arguments:
+            $apiKey: '%env(ADDRESS_COMPLETE_API_KEY)%'

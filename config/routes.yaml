@@ -1,0 +1,11 @@
+eckinox_address_ajax_get_address_predictions:
+    path: /ajax/address/get-predictions
+    controller: eckinox_address.controller.address::getAddressPredictions
+    options:
+        expose: true
+
+eckinox_address_ajax_get_address_details:
+    path: /ajax/address/get-details
+    controller: eckinox_address.controller.address::getAddressDetails
+    options:
+        expose: true

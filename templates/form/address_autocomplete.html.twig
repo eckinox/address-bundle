@@ -1,0 +1,16 @@
+{# use 'form_div_layout.html.twig' #}
+
+{%- block eckinox_address_autocomplete_widget -%}
+	<address-autocomplete data-api="{{ api }}">
+		<input type="text" class="form-control" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+		<div class="autocomplete-choices-wrapper">
+			<div class="autocomplete-choices list-group"></div>
+			<div class="loading-overlay" style="display: none;">
+				<div class="spinner-border">
+					<span class="sr-only">Loading...</span>
+				</div>
+			</div>
+		</div>
+	</address-autocomplete>
+	<script type="module" src="{{ asset("bundles/eckinoxaddress/js/widgets/address-autocomplete.js") }}"></script>
+{%- endblock eckinox_address_autocomplete_widget -%}

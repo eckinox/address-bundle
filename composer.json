@@ -1,0 +1,36 @@
+{
+    "name": "eckinox/address-bundle",
+    "description": "Provides a form type to autocomplete addresses",
+    "type": "symfony-bundle",
+    "license": "proprietary",
+    "autoload": {
+        "psr-4": {
+            "Eckinox\\AddressBundle\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Vincent Grenon",
+            "email": "vincentg@eckinox.ca"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "php": ">=8.0",
+        "symfony/form": "^5.0|^6.0",
+        "twig/twig": "^2.12|^3.0",
+        "eckinox/eckinox-cs": "^1.6",
+        "symfony/http-client": "^6.0",
+        "symfony/framework-bundle": "^6.0",
+        "doctrine/orm": "^2.13",
+        "symfony/serializer": "^6.0"
+    },
+    "repositories": [
+    ],
+    "config": {
+        "allow-plugins": {
+            "phpstan/extension-installer": true,
+            "eckinox/installer-plugin": true
+        }
+    }
+}
