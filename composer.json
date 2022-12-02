@@ -22,7 +22,7 @@
         "symfony/http-client": "5.4.*",
         "symfony/framework-bundle": "5.4.*",
         "doctrine/orm": "^2.8",
-        "symfony/serializer": "^6.0"
+        "symfony/serializer": "5.4.*"
     },
     "require-dev": {
         "eckinox/eckinox-cs": "^1.6"
