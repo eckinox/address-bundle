@@ -51,7 +51,7 @@ class AddressCompleteApi implements AddressApiInterface
 		return $formattedPredictions;
 	}
 
-	public function getAdressDetails(?string $placeId): Address
+	public function getAddressDetails(?string $placeId): Address
 	{
 		$urlEncodedPlaceId = urlencode($placeId);
 

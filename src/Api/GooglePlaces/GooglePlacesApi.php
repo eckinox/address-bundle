@@ -43,7 +43,7 @@ class GooglePlacesApi implements AddressApiInterface
 		return $formattedPredictions;
 	}
 
-	public function getAdressDetails(?string $placeId): Address
+	public function getAddressDetails(?string $placeId): Address
 	{
 		$placeId = $placeId;
 

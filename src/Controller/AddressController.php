@@ -50,7 +50,7 @@ class AddressController extends AbstractController
 			return $this->getAddressPredictions();
 		}
 
-		$addressDetails = $this->getApi()->getAdressDetails($placeId);
+		$addressDetails = $this->getApi()->getAddressDetails($placeId);
 		$jsonAddressDetails = $serializer->serialize($addressDetails, 'json');
 
 		return new response($jsonAddressDetails);

@@ -12,8 +12,5 @@ interface AddressApiInterface
 	 */
 	public function getPredictions(string $searchQuery, string $previousId): array;
 
-	/**
-	 * @return AbstractAddress
-	 */
-	public function getAdressDetails(string $placeId): object;
+	public function getAddressDetails(string $placeId): AbstractAddress;
 }
