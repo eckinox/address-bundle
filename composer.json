@@ -17,13 +17,15 @@
     "minimum-stability": "stable",
     "require": {
         "php": ">=8.0",
-        "symfony/form": "^5.0|^6.0",
+        "symfony/form": "5.4.*",
         "twig/twig": "^2.12|^3.0",
-        "eckinox/eckinox-cs": "^1.6",
-        "symfony/http-client": "^6.0",
-        "symfony/framework-bundle": "^6.0",
-        "doctrine/orm": "^2.13",
+        "symfony/http-client": "5.4.*",
+        "symfony/framework-bundle": "5.4.*",
+        "doctrine/orm": "^2.8",
         "symfony/serializer": "^6.0"
+    },
+    "require-dev": {
+        "eckinox/eckinox-cs": "^1.6"
     },
     "repositories": [
     ],
