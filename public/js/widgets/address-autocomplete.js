@@ -42,6 +42,12 @@ class AddressAutocomplete extends HTMLElement {
 				this.classList.add('loading');
 
 				fetch(`${this.getPredictionsRoute}?search=${this.input.value}&api=${this.api}`, {method: 'GET'})
+					.then(response => {
+						if (!response.ok) {
+							this.displayError();
+						}
+						return response;
+					})
 					.then(response => response.json())
 					.then(choices => { 
 						this.classList.remove('loading');
@@ -67,6 +73,12 @@ class AddressAutocomplete extends HTMLElement {
 			this.classList.add('loading');
 			
 			fetch(`${this.getDetailsRoute}?search=${this.input.value}&id=${clickedAddressChoice.id}&action=${action}&api=${this.api}`, {method: 'GET'})
+				.then(response => {
+					if (!response.ok) {
+						this.displayError();
+					}
+					return response;
+				})
 				.then(response => response.json())
 				.then(data => {
 					// data here is either more precise choices or address details
@@ -115,6 +127,41 @@ class AddressAutocomplete extends HTMLElement {
 					${choice.displayName}
 				</small>`
 			);
+		}
+	}
+
+	displayError() {
+		// if used with eckinox/admin-ui-bundle
+		if (typeof window.notyf !== 'undefined') {
+			window.notyf.open({
+				type: 'error',
+				message: Translator.trans('address.messages.error'),
+				duration: 10000,
+				ripple: true,
+				dismissible: true,
+				position: {
+					x: 'right',
+					y: 'top'
+				}
+			});
+		} else {
+			// otherwise
+			const errorLabel = this.querySelector('label.error');
+			const errorMessage = Translator.trans('address.messages.error');
+
+			if (errorLabel == null) {
+				this.wrapper.insertAdjacentHTML(
+					'beforeend',
+					`<label id="${this.input.id}_error" for="${this.input.id}" class="error jquery-validation-error small form-text invalid-feedback">
+						${errorMessage}
+					</label>`
+				);
+			} else {
+				errorLabel.style.display = 'block';
+				errorLabel.textContent = errorMessage;
+			}
+
+			this.input.classList.add('is-invalid');
 		}
 	}
 
