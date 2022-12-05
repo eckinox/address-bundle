@@ -23,8 +23,8 @@ Pour générer votre clé d'API, veuillez vous référer aux articles ci-dessous
 - [How to install | AddressComplete | Canada Post](https://www.canadapost-postescanada.ca/ac/support/setup-guides/#create-an-api-key)
 - [Use API Keys with Places API  |  Google Developers](https://developers.google.com/maps/documentation/places/web-service/get-api-key)
 
-3. Ajouter les routes:
-  Créer un fichier `eckinox_address.yaml` dans le dossier `config/routes` contenant les lignes suivantes:
+3. Ajouter les routes:<br>
+   Créer un fichier `eckinox_address.yaml` dans le dossier `config/routes` contenant les lignes suivantes:
 ```
 eckinox_address:
     resource: "@EckinoxAddressBundle/config/routes.yaml"
