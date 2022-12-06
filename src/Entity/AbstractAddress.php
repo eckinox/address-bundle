@@ -11,7 +11,7 @@ abstract class AbstractAddress
 	 * @ORM\GeneratedValue
 	 * @ORM\Column(type="integer")
 	 */
-	protected int $id;
+	protected ?int $id;
 
 	/**
 	 * @ORM\Column(type="string", length=255)
@@ -37,6 +37,10 @@ abstract class AbstractAddress
 	 * @ORM\Column(type="string", length=255)
 	 */
 	protected string $postalCode;
+	
+	public function __construct() {
+        $this->id = null;
+    }
 
 	public function getId(): ?int
 	{
