@@ -11,7 +11,7 @@ abstract class AbstractAddress
 	 * @ORM\GeneratedValue
 	 * @ORM\Column(type="integer")
 	 */
-	protected ?int $id;
+	protected ?int $id = null;
 
 	/**
 	 * @ORM\Column(type="string", length=255)
@@ -58,9 +58,10 @@ abstract class AbstractAddress
 	 */
 	protected ?string $faxNumber = null;
 	
-	public function __construct() {
-        $this->id = null;
-    }
+	public function __toString()
+	{
+		return "{$this->name} ({$this->getFullAddress()})";
+	}
 
 	public function getId(): ?int
 	{
@@ -173,5 +174,16 @@ abstract class AbstractAddress
 		$this->faxNumber = $faxNumber;
 
 		return $this;
+	}
+
+	public function getFullAddress(): string
+	{
+		return implode(', ', [
+			$this->address,
+			$this->city,
+			$this->province,
+			$this->country,
+			$this->postalCode
+		]);
 	}
 }
