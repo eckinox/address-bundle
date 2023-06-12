@@ -11,7 +11,7 @@ abstract class AbstractAddress
 	 * @ORM\GeneratedValue
 	 * @ORM\Column(type="integer")
 	 */
-	protected ?int $id;
+	protected ?int $id = null;
 
 	/**
 	 * @ORM\Column(type="string", length=255)
@@ -22,6 +22,11 @@ abstract class AbstractAddress
 	 * @ORM\Column(type="string", length=255)
 	 */
 	protected string $address;
+
+	/**
+	 * @ORM\Column(type="string", length=255, nullable=true)
+	 */
+	protected ?string $suite = null;
 
 	/**
 	 * @ORM\Column(type="string", length=255)
@@ -36,11 +41,27 @@ abstract class AbstractAddress
 	/**
 	 * @ORM\Column(type="string", length=255)
 	 */
+	protected string $country;
+
+	/**
+	 * @ORM\Column(type="string", length=255)
+	 */
 	protected string $postalCode;
+
+	/**
+	 * @ORM\Column(type="string", length=255, nullable=true)
+	 */
+	protected ?string $phoneNumber = null;
+
+	/**
+	 * @ORM\Column(type="string", length=255, nullable=true)
+	 */
+	protected ?string $faxNumber = null;
 	
-	public function __construct() {
-        $this->id = null;
-    }
+	public function __toString()
+	{
+		return "{$this->name} ({$this->getFullAddress()})";
+	}
 
 	public function getId(): ?int
 	{
@@ -71,6 +92,18 @@ abstract class AbstractAddress
 		return $this;
 	}
 
+	public function getSuite(): ?string
+	{
+		return $this->suite;
+	}
+
+	public function setSuite(?string $suite): self
+	{
+		$this->suite = $suite;
+
+		return $this;
+	}
+
 	public function getCity(): ?string
 	{
 		return $this->city;
@@ -95,6 +128,18 @@ abstract class AbstractAddress
 		return $this;
 	}
 
+	public function getCountry(): ?string
+	{
+		return $this->country;
+	}
+
+	public function setCountry(string $country): self
+	{
+		$this->country = $country;
+
+		return $this;
+	}
+
 	public function getPostalCode(): ?string
 	{
 		return $this->postalCode;
@@ -105,5 +150,40 @@ abstract class AbstractAddress
 		$this->postalCode = $postalCode;
 
 		return $this;
+	}
+
+	public function getPhoneNumber(): ?string
+	{
+		return $this->phoneNumber;
+	}
+
+	public function setPhoneNumber(?string $phoneNumber): self
+	{
+		$this->phoneNumber = $phoneNumber;
+
+		return $this;
+	}
+
+	public function getFaxNumber(): ?string
+	{
+		return $this->faxNumber;
+	}
+
+	public function setFaxNumber(?string $faxNumber): self
+	{
+		$this->faxNumber = $faxNumber;
+
+		return $this;
+	}
+
+	public function getFullAddress(): string
+	{
+		return implode(', ', [
+			$this->address,
+			$this->city,
+			$this->province,
+			$this->country,
+			$this->postalCode
+		]);
 	}
 }

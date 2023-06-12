@@ -98,18 +98,21 @@ class AddressAutocomplete extends HTMLElement {
 			const addressInput = this.input;
 			let cityInput = this.row.querySelector('*[data-field-name="city"] input');
 			let provinceInput = this.row.querySelector('*[data-field-name="province"] input');
+			let countryInput = this.row.querySelector('*[data-field-name="country"] input');
 			let postalCodeInput = this.row.querySelector('*[data-field-name="postalCode"] input');
 
 			// in the case where the form would be displayed in a modal
 			if (cityInput == null || provinceInput == null || postalCodeInput == null) {
 				cityInput = this.row.querySelector('*.city input');
 				provinceInput = this.row.querySelector('*.province input');
+				countryInput = this.row.querySelector('*.country input');
 				postalCodeInput = this.row.querySelector('*.postal-code input');
 			}
 
 			addressInput.value = event.detail.address;
 			cityInput.value = event.detail.city;
 			provinceInput.value = event.detail.province;
+			countryInput.value = event.detail.country;
 			postalCodeInput.value = event.detail.postalCode;
 		});
 

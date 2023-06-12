@@ -10,6 +10,8 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class GooglePlacesApi implements AddressApiInterface
 {
+	public const API_NAME = 'googlePlaces';
+
 	private HttpClientInterface $client;
 
 	public function __construct(

@@ -1,3 +1,13 @@
 address:
+    fields:
+        address: Adresse
+        city: Ville
+        country: Pays
+        fax_number: Numéro de fax
+        name: Nom
+        phone_number: Numéro de téléphone
+        postal_code: Code postal
+        province: Province
+        suite: Suite
     messages:
         error: Une erreur est survenue, veuillez réessayer ou communiquer avec un administrateur.
