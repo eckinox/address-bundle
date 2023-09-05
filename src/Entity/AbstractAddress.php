@@ -14,14 +14,14 @@ abstract class AbstractAddress
 	protected ?int $id = null;
 
 	/**
-	 * @ORM\Column(type="string", length=255)
+	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
-	protected string $name;
+	protected ?string $name = null;
 
 	/**
-	 * @ORM\Column(type="string", length=255)
+	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
-	protected string $address;
+	protected ?string $address = null;
 
 	/**
 	 * @ORM\Column(type="string", length=255, nullable=true)
@@ -29,24 +29,24 @@ abstract class AbstractAddress
 	protected ?string $suite = null;
 
 	/**
-	 * @ORM\Column(type="string", length=255)
+	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
-	protected string $city;
+	protected ?string $city = null;
 
 	/**
-	 * @ORM\Column(type="string", length=255)
+	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
-	protected string $province;
+	protected ?string $province = null;
 
 	/**
-	 * @ORM\Column(type="string", length=255)
+	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
-	protected string $country;
+	protected ?string $country = null;
 
 	/**
-	 * @ORM\Column(type="string", length=255)
+	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
-	protected string $postalCode;
+	protected ?string $postalCode = null;
 
 	/**
 	 * @ORM\Column(type="string", length=255, nullable=true)
@@ -73,7 +73,7 @@ abstract class AbstractAddress
 		return $this->name;
 	}
 
-	public function setName(string $name): self
+	public function setName(?string $name): self
 	{
 		$this->name = $name;
 
@@ -85,7 +85,7 @@ abstract class AbstractAddress
 		return $this->address;
 	}
 
-	public function setAddress(string $address): self
+	public function setAddress(?string $address): self
 	{
 		$this->address = $address;
 
@@ -109,7 +109,7 @@ abstract class AbstractAddress
 		return $this->city;
 	}
 
-	public function setCity(string $city): self
+	public function setCity(?string $city): self
 	{
 		$this->city = $city;
 
@@ -121,7 +121,7 @@ abstract class AbstractAddress
 		return $this->province;
 	}
 
-	public function setProvince(string $province): self
+	public function setProvince(?string $province): self
 	{
 		$this->province = $province;
 
@@ -133,7 +133,7 @@ abstract class AbstractAddress
 		return $this->country;
 	}
 
-	public function setCountry(string $country): self
+	public function setCountry(?string $country): self
 	{
 		$this->country = $country;
 
@@ -145,7 +145,7 @@ abstract class AbstractAddress
 		return $this->postalCode;
 	}
 
-	public function setPostalCode(string $postalCode): self
+	public function setPostalCode(?string $postalCode): self
 	{
 		$this->postalCode = $postalCode;
 
