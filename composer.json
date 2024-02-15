@@ -25,7 +25,7 @@
         "symfony/serializer": "5.4.*"
     },
     "require-dev": {
-        "eckinox/eckinox-cs": "^1.6"
+        "eckinox/eckinox-cs": "^2.0"
     },
     "repositories": [
     ],
