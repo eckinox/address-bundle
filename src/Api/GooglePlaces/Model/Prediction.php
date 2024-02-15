@@ -6,14 +6,14 @@ use Eckinox\AddressBundle\Model\AbstractPrediction;
 
 class Prediction extends AbstractPrediction
 {
-	public static function fromPlacesResult(object $result): Prediction
-	{
-		$prediction = new Prediction();
+    public static function fromPlacesResult(object $result): Prediction
+    {
+        $prediction = new Prediction();
 
-		$prediction->id = $result->place_id;
-		$prediction->displayName = $result->description;
-		$prediction->action = 'Retrieve';
+        $prediction->id = $result->place_id;
+        $prediction->displayName = $result->description;
+        $prediction->action = 'Retrieve';
 
-		return $prediction;
-	}
+        return $prediction;
+    }
 }

@@ -7,10 +7,10 @@ use Eckinox\AddressBundle\Model\AbstractPrediction;
 
 interface AddressApiInterface
 {
-	/**
-	 * @return array<AbstractPrediction>
-	 */
-	public function getPredictions(string $searchQuery, string $previousId): array;
+    /**
+     * @return array<AbstractPrediction>
+     */
+    public function getPredictions(string $searchQuery, string $previousId): array;
 
-	public function getAddressDetails(string $placeId): AbstractAddress;
+    public function getAddressDetails(string $placeId): AbstractAddress;
 }

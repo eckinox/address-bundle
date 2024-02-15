@@ -15,58 +15,57 @@ use Symfony\Component\Serializer\Serializer;
 
 class AddressController extends AbstractController
 {
-	private Request $request;
+    private Request $request;
 
-	public function __construct(
-		RequestStack $requestStack,
-		private EntityManagerInterface $entityManager,
-		private AddressCompleteApi $addressCompleteApi,
-		private GooglePlacesApi $googlePlacesApi,
-	) {
-		$this->request = $requestStack->getCurrentRequest();
-		$this->entityManager = $entityManager;
-	}
+    public function __construct(
+        RequestStack $requestStack,
+        private EntityManagerInterface $entityManager,
+        private AddressCompleteApi $addressCompleteApi,
+        private GooglePlacesApi $googlePlacesApi,
+    ) {
+        $this->request = $requestStack->getCurrentRequest();
+    }
 
-	public function getAddressPredictions(): response
-	{
-		$serializer = $this->getSerializer();
-		$searchQuery = $this->request->query->get("search");
-		$previousId = $this->request->query->get("id") ?? "";
+    public function getAddressPredictions(): Response
+    {
+        $serializer = $this->getSerializer();
+        $searchQuery = $this->request->query->get("search");
+        $previousId = $this->request->query->get("id") ?? "";
 
-		$predictions = $this->getApi()->getPredictions($searchQuery, $previousId);
-		$jsonPredictions = $serializer->serialize($predictions, 'json');
+        $predictions = $this->getApi()->getPredictions($searchQuery, $previousId);
+        $jsonPredictions = $serializer->serialize($predictions, 'json');
 
-		return new response($jsonPredictions);
-	}
+        return new Response($jsonPredictions);
+    }
 
-	public function getAddressDetails(): response
-	{
-		$serializer = $this->getSerializer();
-		$placeId = $this->request->query->get("id");
-		$action = $this->request->query->get("action"); // Find|Retrieve used by CanadaPost API
+    public function getAddressDetails(): Response
+    {
+        $serializer = $this->getSerializer();
+        $placeId = $this->request->query->get("id");
+        $action = $this->request->query->get("action"); // Find|Retrieve used by CanadaPost API
 
-		// if prediction is of type "Find", do another search instead
-		if ($action == "Find") {
-			return $this->getAddressPredictions();
-		}
+        // if prediction is of type "Find", do another search instead
+        if ($action == "Find") {
+            return $this->getAddressPredictions();
+        }
 
-		$addressDetails = $this->getApi()->getAddressDetails($placeId);
-		$jsonAddressDetails = $serializer->serialize($addressDetails, 'json');
+        $addressDetails = $this->getApi()->getAddressDetails($placeId);
+        $jsonAddressDetails = $serializer->serialize($addressDetails, 'json');
 
-		return new response($jsonAddressDetails);
-	}
+        return new Response($jsonAddressDetails);
+    }
 
-	public function getSerializer(): Serializer
-	{
-		$encoders = [new JsonEncoder()];
-		$normalizers = [new ObjectNormalizer()];
+    public function getSerializer(): Serializer
+    {
+        $encoders = [new JsonEncoder()];
+        $normalizers = [new ObjectNormalizer()];
 
-		return new Serializer($normalizers, $encoders);
-	}
+        return new Serializer($normalizers, $encoders);
+    }
 
-	public function getApi(): AddressCompleteApi|GooglePlacesApi
-	{
-		// the api is loaded based on the form element parameter "api" wich can be either addressComplete | googlePlaces
-		return $this->{$this->request->query->get("api")."Api"};
-	}
+    public function getApi(): AddressCompleteApi|GooglePlacesApi
+    {
+        // the api is loaded based on the form element parameter "api" wich can be either addressComplete | googlePlaces
+        return $this->{$this->request->query->get("api")."Api"};
+    }
 }
