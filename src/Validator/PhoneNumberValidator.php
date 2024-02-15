@@ -29,6 +29,9 @@ use Symfony\Component\Validator\Exception\UnexpectedValueException;
  */
 class PhoneNumberValidator extends ConstraintValidator
 {
+    /**
+     * @param string|null $value
+     */
     public function validate($value, Constraint $constraint): void
     {
         if (!$constraint instanceof PhoneNumber) {

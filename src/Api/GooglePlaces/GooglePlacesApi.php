@@ -47,8 +47,6 @@ class GooglePlacesApi implements AddressApiInterface
 
     public function getAddressDetails(?string $placeId): Address
     {
-        $placeId = $placeId;
-
         $response = $this->client->request(
             'GET',
             "details/json?key={$this->apiKey}&place_id={$placeId}"

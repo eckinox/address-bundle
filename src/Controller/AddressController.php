@@ -2,7 +2,6 @@
 
 namespace Eckinox\AddressBundle\Controller;
 
-use Doctrine\ORM\EntityManagerInterface;
 use Eckinox\AddressBundle\Api\AddressComplete\AddressCompleteApi;
 use Eckinox\AddressBundle\Api\GooglePlaces\GooglePlacesApi;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,7 +18,6 @@ class AddressController extends AbstractController
 
     public function __construct(
         RequestStack $requestStack,
-        private EntityManagerInterface $entityManager,
         private AddressCompleteApi $addressCompleteApi,
         private GooglePlacesApi $googlePlacesApi,
     ) {
@@ -65,7 +63,12 @@ class AddressController extends AbstractController
 
     public function getApi(): AddressCompleteApi|GooglePlacesApi
     {
-        // the api is loaded based on the form element parameter "api" wich can be either addressComplete | googlePlaces
-        return $this->{$this->request->query->get("api")."Api"};
+        $api = $this->request->query->get("api");
+
+        return match ($api) {
+            'addressComplete' => $this->addressCompleteApi,
+            'googlePlaces' => $this->googlePlacesApi,
+            default => throw new \InvalidArgumentException(sprintf('Api %s not found.', $api)),
+        };
     }
 }

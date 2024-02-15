@@ -67,7 +67,7 @@ class AddressCompleteApi implements AddressApiInterface
     }
 
     /**
-     * @return array<int, object> $content
+     * @return array<int, object>
      */
     private function handleResponse(object $response): ?array
     {
@@ -85,7 +85,7 @@ class AddressCompleteApi implements AddressApiInterface
     private function getAddressComponentsBasedOnLang(array $addressComponentsByLang): ?object
     {
         $locale = $this->requestStack->getCurrentRequest()->getLocale();
-        $lang = strpos($locale, 'fr') !== false ? 'FRE' : 'ENG'; // addressComplete only supports FR and EN
+        $lang = str_contains($locale, 'fr') ? 'FRE' : 'ENG'; // addressComplete only supports FR and EN
 
         foreach ($addressComponentsByLang as $addressComponents) {
             if ($addressComponents->Language === $lang) {

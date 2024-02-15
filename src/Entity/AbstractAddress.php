@@ -4,7 +4,7 @@ namespace Eckinox\AddressBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-abstract class AbstractAddress
+abstract class AbstractAddress implements \Stringable
 {
     /**
      * @ORM\Id
@@ -60,7 +60,7 @@ abstract class AbstractAddress
      */
     protected ?string $faxNumber = null;
 
-    public function __toString()
+    public function __toString(): string
     {
         return "{$this->name} ({$this->getFullAddress()})";
     }
