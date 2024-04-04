@@ -1,5 +1,5 @@
 {%- block eckinox_address_autocomplete_widget -%}
-	<address-autocomplete class="{{ form.vars.errors|length ? 'is-invalid' : '' }}" data-api="{{ api }}">
+	<address-autocomplete class="{{ form.vars.errors|length ? 'is-invalid' : '' }}" data-api="{{ api }}" data-parent="{{ parent }}">
 		<input type="text" class="form-control {{ form.vars.errors|length ? 'is-invalid' : '' }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
 		<div class="autocomplete-choices-wrapper">
 			<div class="autocomplete-choices list-group"></div>

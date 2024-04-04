@@ -87,7 +87,7 @@ class MyFormType extends AbstractType
 				'entry_type' => AddressType::class,
 				'entry_options' => [
 					'data_class' => Address::class,
-					'api' => 'addressComplete', 
+					'api' => 'addressComplete',
 				],
 				'by_reference' => false,
 			])
@@ -104,6 +104,7 @@ Pour utiliser le champ `AddressAutocompleteType` dans vos `FormType`, vous devez
 3. Ajouter les paramètres désirés:
 	1. Il est recommandé de désactiver l'autocomplete du champ pour éviter que les propositions du navigateur passent par-dessus les propositions d'autocomplete. Vous n'avez qu'à ajouter l'attribut suivant au champ: `'autocomplete' => uniqid('noautocomplete')`.
 	2. Il est possible de passer un paramètre `api` pour choisir l'API à utiliser. Les choix disponibles sont: `addressComplete` ou `googlePlaces`. Si aucun API est spécifié, l'api de Poste Canada "Address Complete" sera utilisé par défaut.
+	3. Ajouter, au besoin l'option `parent` qui sert à définir un sélecteur JS valide qui sera utilisé à la place du `parentNode`. Utile si vous voulez remplir les informations de l'autocomplete sur des champs qui ne sont pas à l'intérieur du parent immédiat. Exemple: `.section-wrapper.geo.card`
 
 Voici un exemple:
 ```php
@@ -124,6 +125,8 @@ class AddressType extends AbstractType
 					'autocomplete' => uniqid('noautocomplete'),
 				],
 				'api' => 'addressComplete', // addressComplete || googlePlaces
+				'parent' => '.section-wrapper.geo.card', // Optionnel, par défaut le parent immédiat
+
 			])
 			->add('city', TextType::class)
 			->add('province', TextType::class)
