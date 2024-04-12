@@ -205,7 +205,7 @@ class AddressAutocomplete extends HTMLElement {
 		document.head.insertAdjacentHTML("afterbegin", `
 			<style>
 				address-autocomplete { position: relative; display: block; }
-				address-autocomplete .autocomplete-choices-wrapper { position: absolute; top: 100%; left: 0; width: 100%; max-height: 215px; overflow-y: auto; cursor: pointer; }
+				address-autocomplete .autocomplete-choices-wrapper { position: absolute; z-index: 999; top: 100%; left: 0; width: 100%; max-height: 215px; overflow-y: auto; cursor: pointer; }
 				address-autocomplete .autocomplete-choices-wrapper .autocomplete-choices { min-height: 50px; }
 				address-autocomplete .autocomplete-choices-wrapper .autocomplete-choices:empty { min-height: 0; }
 				address-autocomplete .loading-overlay { pointer-events: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #33333377; display: flex; align-items: center; justify-content: center; transition: opacity .2s ease-in-out; opacity: 0; mix-blend-mode: exclusion; }
