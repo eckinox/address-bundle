@@ -27,7 +27,7 @@
         "twig/twig": "^3.8"
     },
     "require-dev": {
-        "eckinox/eckinox-cs": "^2.0"
+        "eckinox/eckinox-cs": "^3.0"
     },
     "repositories": [
     ],
