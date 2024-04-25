@@ -15,6 +15,7 @@ class AddressAutocompleteType extends AbstractType
     {
         $resolver->setDefaults([
             'api' => AddressCompleteApi::API_NAME,
+            'parent' => null,
         ]);
     }
 
@@ -22,6 +23,7 @@ class AddressAutocompleteType extends AbstractType
     {
         $view->vars['attr']['data-widget'] = 'address-complete';
         $view->vars['api'] = $options['api'];
+        $view->vars['parent'] = $options['parent'] ?? null;
 
         parent::buildView($view, $form, $options);
     }

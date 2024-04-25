@@ -9,6 +9,7 @@ class AddressAutocomplete extends HTMLElement {
 		this.row = null;
 		this.autocompleteChoices = null;
 		this.api = '';
+		this.parent = null;
 		this.getPredictionsRoute = Routing.generate('eckinox_address_ajax_get_address_predictions', {});
 		this.getDetailsRoute = Routing.generate('eckinox_address_ajax_get_address_details', {});
 	}
@@ -17,7 +18,8 @@ class AddressAutocomplete extends HTMLElement {
 	{
 		this.input = this.querySelector('input');
 		this.wrapper = this;
-		this.row = this.parentNode.parentNode;
+		this.parent = this.dataset.parent ?? null;
+		this.row = this.parent ? document.querySelector(this.parent) : this.parentNode.parentNode;
 		this.autocompleteChoices = this.querySelector('.autocomplete-choices');
 		this.api = this.dataset.api;
 
@@ -97,28 +99,54 @@ class AddressAutocomplete extends HTMLElement {
 		this.row.addEventListener('populate-address', (event) => {
 			const addressInput = this.input;
 			let cityInput = this.row.querySelector('*[data-field-name="city"] input');
-			let provinceInput = this.row.querySelector('*[data-field-name="province"] input');
-			let countryInput = this.row.querySelector('*[data-field-name="country"] input');
+			let provinceInput = this.row.querySelector('*[data-field-name="province"] input, *[data-field-name="province"] select');
+			let countryInput = this.row.querySelector('*[data-field-name="country"] input, *[data-field-name="country"] select');
 			let postalCodeInput = this.row.querySelector('*[data-field-name="postalCode"] input');
 
 			// in the case where the form would be displayed in a modal
 			if (cityInput == null || provinceInput == null || postalCodeInput == null) {
 				cityInput = this.row.querySelector('*.city input');
-				provinceInput = this.row.querySelector('*.province input');
-				countryInput = this.row.querySelector('*.country input');
+				provinceInput = this.row.querySelector('*.province input, *.province select');
+				countryInput = this.row.querySelector('*.country input, *.country select');
 				postalCodeInput = this.row.querySelector('*.postal-code input');
 			}
 
 			addressInput.value = event.detail.address;
-			cityInput.value = event.detail.city;
-			provinceInput.value = event.detail.province;
-			countryInput.value = event.detail.country;
-			postalCodeInput.value = event.detail.postalCode;
+			if (cityInput !== null) {
+				cityInput.value = event.detail.city;
+			}
+			if (provinceInput !== null) {
+				if (provinceInput.tagName === 'SELECT') {
+					this.selectOptionByTextOrValue(provinceInput, event.detail.province);
+				} else {
+					provinceInput.value = event.detail.province;
+				}
+			}
+			if (countryInput !== null) {
+				if (countryInput.tagName === 'SELECT') {
+					this.selectOptionByTextOrValue(countryInput, event.detail.country);
+				} else {
+					countryInput.value = event.detail.country;
+				}
+			}
+			if (postalCodeInput !== null) {
+				postalCodeInput.value = event.detail.postalCode;
+			}
 		});
 
 		window.addEventListener('click', () => {
 			this.autocompleteChoices.innerHTML = '';
 		});
+	}
+
+	selectOptionByTextOrValue(selectElement, textOrValue) {
+		for (let option of selectElement.options) {
+			if (option.text === textOrValue || option.value === textOrValue) {
+				selectElement.value = option.value;
+				break;
+			}
+		}
+		selectElement.dispatchEvent(new Event('change'));
 	}
 
 	generateChoices(choices)
@@ -177,7 +205,7 @@ class AddressAutocomplete extends HTMLElement {
 		document.head.insertAdjacentHTML("afterbegin", `
 			<style>
 				address-autocomplete { position: relative; display: block; }
-				address-autocomplete .autocomplete-choices-wrapper { position: absolute; top: 100%; left: 0; width: 100%; max-height: 215px; overflow-y: auto; cursor: pointer; }
+				address-autocomplete .autocomplete-choices-wrapper { position: absolute; z-index: 999; top: 100%; left: 0; width: 100%; max-height: 215px; overflow-y: auto; cursor: pointer; }
 				address-autocomplete .autocomplete-choices-wrapper .autocomplete-choices { min-height: 50px; }
 				address-autocomplete .autocomplete-choices-wrapper .autocomplete-choices:empty { min-height: 0; }
 				address-autocomplete .loading-overlay { pointer-events: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #33333377; display: flex; align-items: center; justify-content: center; transition: opacity .2s ease-in-out; opacity: 0; mix-blend-mode: exclusion; }
