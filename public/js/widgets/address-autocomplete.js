@@ -9,9 +9,10 @@ class AddressAutocomplete extends HTMLElement {
 		this.row = null;
 		this.autocompleteChoices = null;
 		this.api = '';
+		this.routeSuffix = this.dataset.routeSuffix ?? null;
 		this.parent = null;
-		this.getPredictionsRoute = Routing.generate('eckinox_address_ajax_get_address_predictions', {});
-		this.getDetailsRoute = Routing.generate('eckinox_address_ajax_get_address_details', {});
+		this.getPredictionsRoute = Routing.generate('eckinox_address_ajax_get_address_predictions' + this.routeSuffix , {});
+		this.getDetailsRoute = Routing.generate('eckinox_address_ajax_get_address_details' + this.routeSuffix , {});
 	}
 
 	connectedCallback()
