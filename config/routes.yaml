@@ -1,9 +1,9 @@
 # User Firewall
-eckinox_admin_ui_datatable:
+eckinox_address_ajax_get_address:
     resource: "@EckinoxAddressBundle/config/routes/address_autocomplete.yaml"
     prefix: '%eckinox_security.route_admin_prefix%'
 
 # App User Firewall
-eckinox_admin_ui_app_datatable:
+eckinox_address_ajax_get_address_app:
     resource: "@EckinoxAddressBundle/config/routes/app_address_autocomplete.yaml"
     prefix: '%eckinox_security.route_app_prefix%'
