@@ -1,11 +1,9 @@
-eckinox_address_ajax_get_address_predictions:
-    path: /ajax/address/get-predictions
-    controller: eckinox_address.controller.address::getAddressPredictions
-    options:
-        expose: true
+# User Firewall
+eckinox_admin_ui_datatable:
+    resource: "@EckinoxAddressBundle/config/routes/address_autocomplete.yaml"
+    prefix: '%eckinox_security.route_admin_prefix%'
 
-eckinox_address_ajax_get_address_details:
-    path: /ajax/address/get-details
-    controller: eckinox_address.controller.address::getAddressDetails
-    options:
-        expose: true
+# App User Firewall
+eckinox_admin_ui_app_datatable:
+    resource: "@EckinoxAddressBundle/config/routes/app_address_autocomplete.yaml"
+    prefix: '%eckinox_security.route_app_prefix%'
